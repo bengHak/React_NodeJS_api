@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Customer from './Customer';
 
 class App extends Component {
+
+  state = {
+    customers : ""
+  }
+
+  componentDidMount = () => {
+    this.callApi()
+    .then(res => this.setState({customers: res}))
+    .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        {
+          this.state.customers ? this.state.customers.map(c => <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.name} gender={c.gender} job={c.job}/>) : ""
+        }
       </div>
     );
   }
