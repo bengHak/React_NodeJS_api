@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Customer from './Customer';
+import Book from './Book';
 
 class App extends Component {
 
   state = {
-    customers : ""
+    books : ""
   }
 
   componentDidMount = () => {
     this.callApi()
-    .then(res => this.setState({customers: res}))
+    .then(res => this.setState({books: res}))
     .catch(err => console.log(err));
   }
 
   callApi = async () => {
-    const response = await fetch('/api/customers');
+    const response = await fetch('/api/books/');
     const body = await response.json();
     return body;
   }
@@ -24,7 +24,7 @@ class App extends Component {
     return (
       <div className="App">
         {
-          this.state.customers ? this.state.customers.map(c => <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.name} gender={c.gender} job={c.job}/>) : ""
+          this.state.books ? this.state.books.map(c => <Book key={c.id} id={c.id} image={c.image} title={c.title} author={c.author} published_date={c.published_date}/>) : ""
         }
       </div>
     );

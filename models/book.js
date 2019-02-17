@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const bookSchema = new Schema({
     title: String,
     author: String,
+    image: String,
     published_date: { type: Date, default: Date.now  }
     },
     {

@@ -31,6 +31,7 @@ module.exports = (app, Book) => {
         book.title = req.body.title;
         book.author = req.body.author;
         book.published_date = new Date(req.body.published_date);
+        book.image = req.body.image;
 
         book.save(function(err) {
             if (err) {
